@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Distraction Block</title>
+        <meta charset="utf-8" />
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 15px;
+                width: 300px;
+            }
+
+            h1 {
+                margin-top: 0;
+                font-size: 20px;
+                text-align: center;
+            }
+
+            .toggle-container {
+                display: flex;
+                align-items: center;
+                margin: 15px 0;
+            }
+
+            /* Toggle switch */
+            .switch {
+                position: relative;
+                display: inline-block;
+                width: 50px;
+                height: 24px;
+                margin-right: 10px;
+            }
+
+            .switch input {
+                opacity: 0;
+                width: 0;
+                height: 0;
+            }
+
+            .slider {
+                position: absolute;
+                cursor: pointer;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background-color: #ccc;
+                transition: 0.4s;
+                border-radius: 24px;
+            }
+
+            .slider:before {
+                position: absolute;
+                content: "";
+                height: 16px;
+                width: 16px;
+                left: 4px;
+                bottom: 4px;
+                background-color: white;
+                transition: 0.4s;
+                border-radius: 50%;
+            }
+
+            input:checked + .slider {
+                background-color: #2196f3;
+            }
+
+            input:checked + .slider:before {
+                transform: translateX(26px);
+            }
+
+            .input-section {
+                display: flex;
+                margin: 15px 0;
+            }
+
+            input[type="text"] {
+                flex: 1;
+                padding: 8px;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                margin-right: 5px;
+            }
+
+            button {
+                background-color: #4285f4;
+                color: white;
+                border: none;
+                padding: 8px 12px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            button:hover {
+                background-color: #3367d6;
+            }
+
+            #saveBtn {
+                width: 100%;
+                margin-top: 15px;
+                padding: 10px;
+            }
+
+            #saveBtn.unsaved {
+                background-color: #f44336;
+            }
+
+            ul {
+                list-style-type: none;
+                padding: 0;
+                margin: 15px 0;
+                max-height: 200px;
+                overflow-y: auto;
+            }
+
+            li {
+                padding: 8px;
+                background-color: #f5f5f5;
+                border-radius: 4px;
+                margin-bottom: 5px;
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .delete-btn {
+                background-color: #f44336;
+                color: white;
+                border: none;
+                border-radius: 50%;
+                width: 20px;
+                height: 20px;
+                line-height: 1;
+                cursor: pointer;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Distraction Block</h1>
+
+        <div class="toggle-container">
+            <label class="switch">
+                <input type="checkbox" id="blockToggle" />
+                <span class="slider"></span>
+            </label>
+            <span id="statusText">Blocking Mode: Off</span>
+        </div>
+
+        <div class="input-section">
+            <input
+                type="text"
+                id="siteInput"
+                placeholder="Enter website (e.g., facebook.com)"
+            />
+            <button id="addBtn">Add</button>
+        </div>
+
+        <h2>Blocked Sites</h2>
+        <ul id="sitesList"></ul>
+
+        <button id="saveBtn">Save Settings</button>
+
+        <script src="popup.js"></script>
+    </body>
+</html>
