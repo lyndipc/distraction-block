@@ -99,48 +99,6 @@ input[type="text"] {
     margin-right: 5px;
 }
 
-button {
-    background-color: #4285f4;
-    color: white;
-    border: none;
-    padding: 8px 12px;
-    border-radius: 4px;
-    cursor: pointer;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
-
-button:hover {
-    background-color: #3367d6;
-}
-
-button:disabled {
-    background-color: #a0a0a0;
-    cursor: default;
-}
-
-/* Unsaved changes button styling */
-button.unsaved {
-    background-color: #f44336;
-    animation: pulse 2s infinite;
-}
-
-button.unsaved:hover {
-    background-color: #d32f2f;
-}
-
-@keyframes pulse {
-    0% {
-        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.4);
-    }
-    70% {
-        box-shadow: 0 0 0 6px rgba(244, 67, 54, 0);
-    }
-    100% {
-        box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
-    }
-}
-
 #sitesList {
     list-style-type: none;
     padding: 0;
@@ -160,30 +118,4 @@ button.unsaved:hover {
     align-items: center;
 }
 
-.delete-btn {
-    background-color: #f44336;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 2px 8px;
-    cursor: pointer;
-    font-size: 12px;
-}
-
-.delete-btn:hover {
-    background-color: #d32f2f;
-}
-
-.buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 15px;
-}
-
-#clearBtn {
-    background-color: #f44336;
-}
-
-#clearBtn:hover {
-    background-color: #d32f2f;
-}
+/* #f3215c */

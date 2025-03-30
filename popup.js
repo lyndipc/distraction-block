@@ -104,8 +104,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Delete button
       const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "×";
-      deleteBtn.className = "delete-btn";
+      deleteBtn.id = "deleteBtn";
+      // deleteBtn.attr("id") = "deleteBtn";
+      deleteBtn.textContent = "x";
       deleteBtn.addEventListener("click", function () {
         console.log("Delete button clicked for:", site);
         blockedSites.splice(index, 1);
