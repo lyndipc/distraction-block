@@ -104,9 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Delete button
       const deleteBtn = document.createElement("button");
-      deleteBtn.id = "deleteBtn";
-      // deleteBtn.attr("id") = "deleteBtn";
-      deleteBtn.textContent = "x";
+      deleteBtn.textContent = "X";
+      deleteBtn.className = "delete-btn";
       deleteBtn.addEventListener("click", function () {
         console.log("Delete button clicked for:", site);
         blockedSites.splice(index, 1);
@@ -141,6 +140,7 @@ document.addEventListener("DOMContentLoaded", function () {
         blockToggle.checked = isBlocking;
         statusText.textContent =
           "Blocking Mode: " + (isBlocking ? "On" : "Off");
+        statusText.style.color = isBlocking ? "#83ECCD" : "#ffffff";
       }
 
       hasUnsavedChanges = false;
