@@ -64,4 +64,4 @@ To modify this extension:
 
 ## License
 
-MIT License
+This project is licensed under the [GNU GPL v3 License](LICENSE) - see the [LICENSE](LICENSE) file for details.
