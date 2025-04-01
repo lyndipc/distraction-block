@@ -6,9 +6,7 @@ A browser extension for Chrome and Firefox that helps you stay focused by blocki
 
 - Block specific websites that distract you
 - Simple on/off toggle to enable or disable blocking
-- Override blocking for 5 minutes when needed
 - Works across Chrome and Firefox browsers
-- Syncs your settings across devices
 
 ## Installation
 
@@ -64,4 +62,4 @@ To modify this extension:
 
 ## License
 
-This project is licensed under the [GNU GPL v3 License](LICENSE) - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the _GNU GPL v3 License_ - see the [LICENSE](LICENSE.md) file for details.
