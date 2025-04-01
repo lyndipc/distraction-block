@@ -8,6 +8,12 @@ A browser extension for Chrome and Firefox that helps you stay focused by blocki
 - Simple on/off toggle to enable or disable blocking
 - Works across Chrome and Firefox browsers
 
+## Privacy Policy
+
+We take your privacy seriously. This extension does not collect any personal data. All settings are stored locally in your browser.
+
+- [Read our full Privacy Policy](privacy.html)
+
 ## Installation
 
 ### Chrome

@@ -9,6 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const addBtn = document.getElementById("addBtn");
   const sitesList = document.getElementById("sitesList");
   const saveBtn = document.getElementById("saveBtn");
+  const privacyLink = document.getElementById("privacyLink");
 
   console.log("DOM elements:", {
     blockToggle: !!blockToggle,
@@ -53,6 +54,12 @@ document.addEventListener("DOMContentLoaded", function () {
   saveBtn.addEventListener("click", function () {
     console.log("Save button clicked");
     saveSettings();
+  });
+
+  privacyLink.addEventListener("click", function () {
+    chrome.tabs.create({
+      url: "https://yourusername.github.io/repository-name/privacy.html",
+    });
   });
 
   // Functions
