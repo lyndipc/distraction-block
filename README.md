@@ -1,6 +1,6 @@
 # Distraction Block Browser Extension
 
-A browser extension for Chrome and Firefox that helps you stay focused by blocking distracting websites until you choose to unblock them.
+A browser extension for Chrome and Firefox that helps you stay focused by blocking distracting websites.
 
 ## Features
 
