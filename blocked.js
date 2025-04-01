@@ -1,8 +1,6 @@
-// Global variables
 let isBlocking = false;
 let blockedSites = [];
 
-// Initialize extension
 chrome.runtime.onInstalled.addListener(function () {
   console.log("Distraction Block installed");
   loadSettings();
@@ -90,7 +88,7 @@ chrome.runtime.onStartup.addListener(function () {
 
 // Listen for back button click
 document.addEventListener("DOMContentLoaded", function () {
-  console.log("Blocked page loaded");
+  console.log("Blocked view loaded");
 
   var backBtn = document.getElementById("backBtn");
 

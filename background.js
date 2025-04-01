@@ -1,14 +1,11 @@
-// Global variables
 let isBlocking = false;
 let blockedSites = [];
 
-// Initialize extension
 chrome.runtime.onInstalled.addListener(function () {
   console.log("Distraction Block installed");
   loadSettings();
 });
 
-// Handle messages from popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   console.log("Background received message:", message);
 
@@ -26,7 +23,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   }
 });
 
-// Load settings from storage
 function loadSettings() {
   chrome.storage.sync.get(["blockedSites", "isBlocking"], function (result) {
     blockedSites = result.blockedSites || [];
@@ -34,7 +30,6 @@ function loadSettings() {
 
     console.log("Loaded settings:", { isBlocking, blockedSites });
 
-    // Set up tab listeners for blocking
     setupTabListeners();
   });
 }
@@ -45,15 +40,15 @@ function setupTabListeners() {
   try {
     chrome.tabs.onUpdated.removeListener(handleTabUpdate);
   } catch (error) {
-    console.log("No existing tab listener to remove");
+    console.error("No existing tab listener to remove");
   }
 
   // Add listener if blocking is enabled and we have sites to block
   if (isBlocking && blockedSites.length > 0) {
     chrome.tabs.onUpdated.addListener(handleTabUpdate);
-    console.log("Tab listener set up for blocking");
+    console.info("Tab listener set up for blocking");
   } else {
-    console.log("Blocking disabled or no sites to block");
+    console.error("Blocking disabled or no sites to block");
   }
 }
 
@@ -61,10 +56,10 @@ function setupTabListeners() {
 function handleTabUpdate(tabId, changeInfo, tab) {
   // Only check if the URL has been updated and if the tab is done loading
   if (changeInfo.url && isBlocking) {
-    console.log("Tab updated, checking URL:", changeInfo.url);
+    console.info("Tab updated, checking URL:", changeInfo.url);
 
     if (shouldBlockUrl(changeInfo.url)) {
-      console.log("Blocking and redirecting tab:", tabId);
+      console.info("Blocking and redirecting tab:", tabId);
 
       // Redirect to blocked page
       chrome.tabs.update(tabId, {
@@ -80,8 +75,8 @@ function shouldBlockUrl(url) {
     const urlObj = new URL(url);
     const hostname = urlObj.hostname.replace(/^www\./, "");
 
-    console.log("Checking if should block:", hostname);
-    console.log("Blocked sites:", blockedSites);
+    console.info("Checking if should block:", hostname);
+    console.info("Blocked sites:", blockedSites);
 
     // Don't block extension pages
     if (url.startsWith(chrome.runtime.getURL(""))) {
@@ -97,22 +92,22 @@ function shouldBlockUrl(url) {
         hostname === blockedDomain ||
         hostname.endsWith("." + blockedDomain)
       ) {
-        console.log("Should block:", hostname, "(matches", blockedDomain, ")");
+        console.info("Should block:", hostname, "(matches", blockedDomain, ")");
         return true;
       }
     }
 
-    console.log("Not blocking:", hostname);
+    console.info("Not blocking:", hostname);
     return false;
   } catch (error) {
-    console.error("Error checking URL:", error);
+    console.error("Error checking URL:", error, "URL:", url);
     return false;
   }
 }
 
 // Listen for browser startup
 chrome.runtime.onStartup.addListener(function () {
-  console.log("Browser started");
+  console.info("Browser started");
   loadSettings();
 });
 
@@ -120,10 +115,10 @@ chrome.runtime.onStartup.addListener(function () {
 chrome.webNavigation.onCommitted.addListener(function (details) {
   // Only check main frame (not iframes, etc.)
   if (details.frameId === 0 && isBlocking) {
-    console.log("Navigation committed, checking URL:", details.url);
+    console.info("Navigation committed, checking URL:", details.url);
 
     if (shouldBlockUrl(details.url)) {
-      console.log("Blocking and redirecting navigation:", details.tabId);
+      console.info("Blocking and redirecting navigation:", details.tabId);
 
       // Redirect to blocked page
       chrome.tabs.update(details.tabId, {
