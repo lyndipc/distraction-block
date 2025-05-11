@@ -23,7 +23,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "distraction-block@yourdomain.com",
+      "id": "distraction-block@lyndipc.github.io",
       "strict_min_version": "109.0"
     }
   }
