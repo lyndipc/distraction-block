@@ -107,14 +107,14 @@
                 background-color: #6bd0b5;
             }
 
-            #saveBtn {
+            #saveStatus {
                 width: 100%;
                 margin-top: 15px;
-                padding: 10px;
-            }
-
-            #saveBtn.unsaved {
-                background-color: #ff9800;
+                text-align: center;
+                color: #83eccd;
+                font-size: 14px;
+                opacity: 0;
+                transition: opacity 0.3s ease;
             }
 
             ul {
@@ -136,12 +136,10 @@
 
             .delete-btn {
                 background-color: #ff9800;
-                /* color: black; */
                 border: none;
                 border-radius: 10%;
                 width: 20px;
                 height: 20px;
-                /* line-height: 1; */
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -154,10 +152,19 @@
                 opacity: 0.8;
             }
 
-            .textContent {
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            .footer {
+                margin-top: 15px;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            .footer a {
+                color: #666;
+                text-decoration: none;
+            }
+
+            .footer a:hover {
+                text-decoration: underline;
             }
         </style>
     </head>
@@ -184,14 +191,14 @@
         <h2>Blocked Sites</h2>
         <ul id="sitesList"></ul>
 
-        <button id="saveBtn">Save Settings</button>
+        <!-- Status indicator instead of Save button -->
+        <div id="saveStatus">Saved</div>
 
-        <div style="margin-top: 15px; text-align: center; font-size: 12px">
+        <div class="footer">
             <a
                 id="privacyLink"
                 href="https://lyndipc.github.io/distraction-block/privacy.html"
                 target="_blank"
-                style="color: #666"
                 >Privacy Policy</a
             >
         </div>

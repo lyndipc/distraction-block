@@ -1,0 +1,27 @@
+{
+  "name": "distraction-block",
+  "version": "1.0.1",
+  "description": "A browser extension that helps you stay focused by blocking distracting websites",
+  "main": "src/background.js",
+  "scripts": {
+    "build": "node build.js",
+    "build:chrome": "node build-chrome.js",
+    "build:firefox": "node build-firefox.js",
+    "package": "node package.js"
+  },
+  "keywords": [
+    "browser-extension",
+    "productivity",
+    "distraction-blocker"
+  ],
+  "author": "Lyndi Castrejon",
+  "license": "GPL-3.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lyndipc/distraction-block.git"
+  },
+  "devDependencies": {
+    "archiver": "^5.3.1",
+    "web-ext": "^7.4.0"
+  }
+}

@@ -1,6 +1,11 @@
+// Service worker for Chrome Manifest V3
+console.log("Distraction Block service worker initializing");
+
+// Set up global state
 let isBlocking = false;
 let blockedSites = [];
 
+// Load settings when service worker starts
 chrome.runtime.onInstalled.addListener(function () {
   console.log("Distraction Block installed");
   loadSettings();
@@ -18,8 +23,26 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
     // Set up tab listeners for blocking
     setupTabListeners();
 
+    // Persist settings to storage as a backup safety measure
+    chrome.storage.sync.set(
+      {
+        blockedSites: blockedSites,
+        isBlocking: isBlocking,
+      },
+      function () {
+        console.log("Settings persisted by background script");
+      },
+    );
+
     sendResponse({ success: true });
     return true; // Keep the message channel open for async response
+  } else if (message.action === "getBlockingStatus") {
+    // New message type to allow popup to get current state
+    sendResponse({
+      isBlocking: isBlocking,
+      blockedSites: blockedSites,
+    });
+    return true;
   }
 });
 
@@ -48,13 +71,13 @@ function setupTabListeners() {
     chrome.tabs.onUpdated.addListener(handleTabUpdate);
     console.info("Tab listener set up for blocking");
   } else {
-    console.error("Blocking disabled or no sites to block");
+    console.info("Blocking disabled or no sites to block");
   }
 }
 
 // Handle tab updates to check for blocked sites
 function handleTabUpdate(tabId, changeInfo, tab) {
-  // Only check if the URL has been updated and if the tab is done loading
+  // Only check if the URL has been updated
   if (changeInfo.url && isBlocking) {
     console.info("Tab updated, checking URL:", changeInfo.url);
 
@@ -127,3 +150,5 @@ chrome.webNavigation.onCommitted.addListener(function (details) {
     }
   }
 });
+
+console.log("Distraction Block service worker initialized successfully");

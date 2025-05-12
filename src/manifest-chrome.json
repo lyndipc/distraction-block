@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "Distraction Block",
-  "version": "1.0.0",
-  "description": "Block distracting websites until you choose to unblock them",
+  "version": "1.0.1",
+  "description": "A browser extension that helps you stay focused by blocking distracting websites",
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -19,12 +19,8 @@
   "permissions": ["storage", "webNavigation", "tabs"],
   "host_permissions": ["<all_urls>"],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "service-worker.js"
   },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "distraction-block@lyndipc.github.io",
-      "strict_min_version": "109.0"
-    }
-  }
+  "author": "Lyndi Castrejon",
+  "homepage_url": "https://github.com/lyndipc/distraction-block"
 }
