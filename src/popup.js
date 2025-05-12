@@ -1,14 +1,12 @@
-// Wait for the DOM to fully load
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Popup script loaded");
 
-  // Get DOM elements
   const blockToggle = document.getElementById("blockToggle");
   const statusText = document.getElementById("statusText");
   const siteInput = document.getElementById("siteInput");
   const addBtn = document.getElementById("addBtn");
   const sitesList = document.getElementById("sitesList");
-  const saveBtn = document.getElementById("saveBtn");
+  const saveStatus = document.getElementById("saveStatus");
   const privacyLink = document.getElementById("privacyLink");
 
   console.log("DOM elements:", {
@@ -17,32 +15,28 @@ document.addEventListener("DOMContentLoaded", function () {
     siteInput: !!siteInput,
     addBtn: !!addBtn,
     sitesList: !!sitesList,
-    saveBtn: !!saveBtn,
+    saveStatus: !!saveStatus,
   });
 
-  // State variables
   let blockedSites = [];
   let isBlocking = false;
-  let hasUnsavedChanges = false;
 
-  // Load saved settings
   loadSettings();
 
-  // Event listeners
   blockToggle.addEventListener("click", function () {
     console.log("Block toggle clicked");
     isBlocking = this.checked;
     statusText.textContent = "Blocking Mode: " + (isBlocking ? "On" : "Off");
-    markAsUnsaved();
+    statusText.style.color = isBlocking ? "#83ECCD" : "#ffffff";
+
+    saveSettings();
   });
 
-  // Add button click handler
   addBtn.addEventListener("click", function () {
     console.log("Add button clicked");
     addSite();
   });
 
-  // Input enter key handler
   siteInput.addEventListener("keypress", function (e) {
     if (e.key === "Enter") {
       console.log("Enter key pressed in input");
@@ -50,19 +44,13 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  // Save button click handler
-  saveBtn.addEventListener("click", function () {
-    console.log("Save button clicked");
-    saveSettings();
-  });
-
-  privacyLink.addEventListener("click", function () {
+  privacyLink.addEventListener("click", function (e) {
+    e.preventDefault();
     chrome.tabs.create({
-      url: "https://yourusername.github.io/repository-name/privacy.html",
+      url: this.href,
     });
   });
 
-  // Functions
   function addSite() {
     const site = siteInput.value.trim();
     console.log("Adding site:", site);
@@ -91,7 +79,8 @@ document.addEventListener("DOMContentLoaded", function () {
       blockedSites.push(formattedSite);
       siteInput.value = "";
       renderSitesList();
-      markAsUnsaved();
+
+      saveSettings();
     } else {
       console.log("Site already in list");
       siteInput.value = "";
@@ -105,11 +94,9 @@ document.addEventListener("DOMContentLoaded", function () {
     blockedSites.forEach(function (site, index) {
       const li = document.createElement("li");
 
-      // Site name
       const siteText = document.createTextNode(site);
       li.appendChild(siteText);
 
-      // Delete button
       const deleteBtn = document.createElement("button");
       deleteBtn.textContent = "X";
       deleteBtn.className = "delete-btn";
@@ -117,7 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("Delete button clicked for:", site);
         blockedSites.splice(index, 1);
         renderSitesList();
-        markAsUnsaved();
+
+        saveSettings();
       });
 
       li.appendChild(deleteBtn);
@@ -125,11 +113,13 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  function markAsUnsaved() {
-    console.log("Marking as unsaved");
-    hasUnsavedChanges = true;
-    saveBtn.classList.add("unsaved");
-    saveBtn.textContent = "Save Settings";
+  function showSaveStatus(message = "Saved", duration = 2000) {
+    saveStatus.textContent = message;
+    saveStatus.style.opacity = "1";
+
+    setTimeout(() => {
+      saveStatus.style.opacity = "0";
+    }, duration);
   }
 
   function loadSettings() {
@@ -149,22 +139,13 @@ document.addEventListener("DOMContentLoaded", function () {
           "Blocking Mode: " + (isBlocking ? "On" : "Off");
         statusText.style.color = isBlocking ? "#83ECCD" : "#ffffff";
       }
-
-      hasUnsavedChanges = false;
-      saveBtn.classList.remove("unsaved");
-      saveBtn.textContent = "Saved";
     });
   }
 
   function saveSettings() {
     console.log("Saving settings");
 
-    if (!hasUnsavedChanges) {
-      console.log("No changes to save");
-      return;
-    }
-
-    saveBtn.textContent = "Saving...";
+    showSaveStatus("Saving...");
 
     chrome.storage.sync.set(
       {
@@ -174,7 +155,6 @@ document.addEventListener("DOMContentLoaded", function () {
       function () {
         console.log("Settings saved to storage");
 
-        // Notify background script
         chrome.runtime.sendMessage(
           {
             action: "updateBlocking",
@@ -183,9 +163,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           function (response) {
             console.log("Background response:", response);
-            hasUnsavedChanges = false;
-            saveBtn.classList.remove("unsaved");
-            saveBtn.textContent = "Saved";
+            showSaveStatus("Saved");
           },
         );
       },
