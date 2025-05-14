@@ -6,14 +6,12 @@ const buildDir = path.join(__dirname, "build");
 const chromeDir = path.join(buildDir, "chrome");
 const firefoxDir = path.join(buildDir, "firefox");
 
-// Clear the build directory if it exists
 if (fs.existsSync(buildDir)) {
   console.log("Removing existing build directory...");
   fs.rmSync(buildDir, { recursive: true, force: true });
   console.log("Old build directory removed successfully");
 }
 
-// Create fresh directories
 console.log("\nCreating new build directories... 🛠️");
 fs.mkdirSync(buildDir);
 fs.mkdirSync(chromeDir);
