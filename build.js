@@ -6,9 +6,18 @@ const buildDir = path.join(__dirname, "build");
 const chromeDir = path.join(buildDir, "chrome");
 const firefoxDir = path.join(buildDir, "firefox");
 
-if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
-if (!fs.existsSync(chromeDir)) fs.mkdirSync(chromeDir);
-if (!fs.existsSync(firefoxDir)) fs.mkdirSync(firefoxDir);
+// Clear the build directory if it exists
+if (fs.existsSync(buildDir)) {
+  console.log("Removing existing build directory...");
+  fs.rmSync(buildDir, { recursive: true, force: true });
+  console.log("Old build directory removed successfully");
+}
+
+// Create fresh directories
+console.log("\nCreating new build directories... 🛠️");
+fs.mkdirSync(buildDir);
+fs.mkdirSync(chromeDir);
+fs.mkdirSync(firefoxDir);
 
 const commonFiles = [
   "popup.html",
@@ -34,7 +43,7 @@ function copyIcons(targetDir) {
         path.join(iconsDir, icon),
       );
     });
-    console.log(`Copied icons to ${targetDir}`);
+    console.log(`  Copied icons to ${targetDir}`);
   } catch (err) {
     console.error(`Error copying icons: ${err.message}`);
   }
@@ -45,7 +54,7 @@ commonFiles.forEach((file) => {
     if (fs.existsSync(path.join(sourceDir, file))) {
       fs.copyFileSync(path.join(sourceDir, file), path.join(chromeDir, file));
       fs.copyFileSync(path.join(sourceDir, file), path.join(firefoxDir, file));
-      console.log(`Copied ${file} to build directories`);
+      console.log(`  Copied ${file} to build directories`);
     }
   } catch (err) {
     console.error(`Error copying ${file}: ${err.message}`);
@@ -61,7 +70,7 @@ try {
     path.join(sourceDir, "manifest-firefox.json"),
     path.join(firefoxDir, "manifest.json"),
   );
-  console.log("Copied browser-specific manifest files");
+  console.log("  Copied browser-specific manifest files");
 } catch (err) {
   console.error(`Error copying manifest files: ${err.message}`);
 }
@@ -69,6 +78,6 @@ try {
 copyIcons(chromeDir);
 copyIcons(firefoxDir);
 
-console.log("Build completed successfully!");
-console.log(`Chrome extension: ${chromeDir}`);
-console.log(`Firefox extension: ${firefoxDir}`);
+console.log("\nBuild completed successfully! ✅");
+console.log(`  Chrome extension: ${chromeDir}`);
+console.log(`  Firefox extension: ${firefoxDir}`);
