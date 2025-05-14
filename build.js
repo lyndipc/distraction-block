@@ -6,9 +6,16 @@ const buildDir = path.join(__dirname, "build");
 const chromeDir = path.join(buildDir, "chrome");
 const firefoxDir = path.join(buildDir, "firefox");
 
-if (!fs.existsSync(buildDir)) fs.mkdirSync(buildDir);
-if (!fs.existsSync(chromeDir)) fs.mkdirSync(chromeDir);
-if (!fs.existsSync(firefoxDir)) fs.mkdirSync(firefoxDir);
+if (fs.existsSync(buildDir)) {
+  console.log("Removing existing build directory...");
+  fs.rmSync(buildDir, { recursive: true, force: true });
+  console.log("Old build directory removed successfully");
+}
+
+console.log("Creating new build directories...");
+fs.mkdirSync(buildDir);
+fs.mkdirSync(chromeDir);
+fs.mkdirSync(firefoxDir);
 
 const commonFiles = [
   "popup.html",
@@ -69,6 +76,6 @@ try {
 copyIcons(chromeDir);
 copyIcons(firefoxDir);
 
-console.log("Build completed successfully!");
-console.log(`Chrome extension: ${chromeDir}`);
-console.log(`Firefox extension: ${firefoxDir}`);
+console.log("\nBuild completed successfully! ✅");
+console.log(` > Chrome extension: ${chromeDir}`);
+console.log(` > Firefox extension: ${firefoxDir}`);
