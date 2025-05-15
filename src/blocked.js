@@ -90,28 +90,29 @@ chrome.runtime.onStartup.addListener(function () {
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Blocked view loaded");
 
-  var backBtn = document.getElementById("backBtn");
+  const backBtn = document.getElementById("backBtn");
+  if (backBtn) {
+    backBtn.addEventListener("click", function () {
+      console.log("Back button clicked");
 
-  backBtn.addEventListener("click", function () {
-    console.log("Back button clicked");
-
-    try {
-      if (window.history.length > 1) {
-        console.log("Go back 2");
-        window.history.go(-2);
-      }
-    } catch (error) {
-      console.error("Error navigating back:", error);
-    }
-
-    // As a fallback option, try closing the tab
-    setTimeout(function () {
-      console.log("Attempting fallback: try to close tab");
       try {
-        window.close();
+        if (window.history.length > 1) {
+          console.log("Going back in history");
+          window.history.go(-2);
+        }
       } catch (error) {
-        console.error("Could not close tab:", error);
+        console.error("Error navigating back:", error);
       }
-    }, 300);
-  });
+
+      // As a fallback option, try closing the tab
+      setTimeout(function () {
+        console.log("Attempting fallback: try to close tab");
+        try {
+          window.close();
+        } catch (error) {
+          console.error("Could not close tab:", error);
+        }
+      }, 300);
+    });
+  }
 });
