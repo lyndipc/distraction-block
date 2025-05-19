@@ -7,7 +7,8 @@
     "build": "node build.js",
     "build:chrome": "node build-chrome.js",
     "build:firefox": "node build-firefox.js",
-    "package": "node package.js"
+    "package:firefox": "web-ext build --source-dir=build/firefox --artifacts-dir=build/firefox/dist --overwrite-dest",
+    "package:chrome": "mkdir -p build/chrome/dist && cd build/chrome && zip -r dist/distraction-block-chrome.zip * --exclude dist/* && echo 'Chrome package created at build/chrome/dist/distraction-block-chrome.zip'"
   },
   "keywords": [
     "browser-extension",
