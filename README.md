@@ -36,8 +36,8 @@ We take your privacy seriously. This extension does not collect any personal dat
 
 1. Click on the extension icon in your browser toolbar to open the popup
 2. Add websites you want to block by entering their domain (e.g., `facebook.com`, `twitter.com`)
-3. Toggle the "Blocking Mode" switch to enable or disable blocking
-4. Click "Save Settings" to apply your changes
+3. Click "Add" to save the website or the "X" to remove it
+4. Toggle the "Blocking Mode" switch to enable or disable blocking
 
 If you try to access a blocked website when blocking is enabled, you'll see a block page with two options:
 
