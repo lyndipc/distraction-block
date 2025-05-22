@@ -132,3 +132,19 @@ chrome.webNavigation.onCommitted.addListener(function (details) {
     }
   }
 });
+
+// Reload when the window gets focus
+chrome.windows.onFocusChanged.addListener(function (windowId) {
+  if (windowId !== chrome.windows.WINDOW_ID_NONE) {
+    console.log("Window gained focus, refreshing settings...");
+    loadSettings();
+  }
+});
+
+// Reload when tab gets activated
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  if (activeInfo.tabId !== chrome.tabs.TAB_ID_NONE) {
+    console.log("Tab activated, refreshing settings...");
+    loadSettings();
+  }
+});

@@ -1,6 +1,4 @@
-// browser-polyfill.js
 (function () {
-  // Define the browser object if it doesn't exist
   window.browser = window.browser || window.chrome;
 
   // If we're in Firefox, this is already defined correctly
