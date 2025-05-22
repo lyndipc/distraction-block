@@ -6,7 +6,6 @@ chrome.runtime.onInstalled.addListener(function () {
   loadSettings();
 });
 
-// Handle messages from popup
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (message.action === "updateBlocking") {
     blockedSites = message.blockedSites || [];
@@ -19,7 +18,6 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   }
 });
 
-// Load settings from storage
 function loadSettings() {
   chrome.storage.sync.get(["blockedSites", "isBlocking"], function (result) {
     blockedSites = result.blockedSites || [];
@@ -31,14 +29,10 @@ function loadSettings() {
   });
 }
 
-// Set up the blocking mechanism
 function setupBlocker() {
-  // Remove existing listener if any
-  if (chrome.webRequest.onBeforeRequest.hasListener(checkRequest)) {
-    chrome.webRequest.onBeforeRequest.removeListener(checkRequest);
-  }
-
-  // Add listener only if blocking is enabled and we have sites to block
+  // if (chrome.webRequest.onBeforeRequest.hasListener(checkRequest)) {
+  //   chrome.webRequest.onBeforeRequest.removeListener(checkRequest);
+  // }
   if (isBlocking && blockedSites.length > 0) {
     chrome.webRequest.onBeforeRequest.addListener(
       checkRequest,
@@ -52,7 +46,6 @@ function setupBlocker() {
   }
 }
 
-// Check if a request should be blocked
 function checkRequest(details) {
   try {
     const url = new URL(details.url);
@@ -67,7 +60,6 @@ function checkRequest(details) {
       ) {
         console.log("Blocking:", hostname);
 
-        // Redirect to blocked page
         return {
           redirectUrl: chrome.runtime.getURL("blocked.html"),
         };
@@ -80,13 +72,11 @@ function checkRequest(details) {
   return { cancel: false };
 }
 
-// Listen for browser startup
 chrome.runtime.onStartup.addListener(function () {
   console.log("Browser started");
   loadSettings();
 });
 
-// Listen for back button click
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Blocked view loaded");
 
@@ -104,7 +94,6 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error navigating back:", error);
       }
 
-      // As a fallback option, try closing the tab
       setTimeout(function () {
         console.log("Attempting fallback: try to close tab");
         try {
