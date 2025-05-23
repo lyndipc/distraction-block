@@ -5,13 +5,14 @@
   "description": "A browser extension that helps you stay focused by blocking distracting websites",
   "icons": {
     "128": "icons/icon128.png",
-    "256": "icons/icon256.png",
-    "384": "icons/icon384.png"
+    "512": "icons/icon512.png",
+    "1024": "icons/icon1024.png",
+    "1536": "icons/icon1536.png"
   },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-      "384": "icons/icon384.png"
+      "1536": "icons/icon1536.png"
     }
   },
   "permissions": ["storage", "webNavigation", "tabs"],
