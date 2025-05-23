@@ -1,8 +1,6 @@
 (function () {
   window.browser = window.browser || window.chrome;
 
-  // If we're in Firefox, this is already defined correctly
-  // If we're in Chrome, we need to polyfill it
   if (
     typeof window.browser !== "object" ||
     typeof window.browser.runtime !== "object"

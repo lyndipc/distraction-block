@@ -21,13 +21,12 @@ const commonFiles = [
   "popup.html",
   "popup.js",
   "popup.css",
-  "background.js",
   "blocked.html",
   "blocked.js",
-  "browser-polyfill.js",
-  "service-worker.js",
   "privacy.html",
 ];
+const chromeSpecificFiles = ["service-worker.js"];
+const firefoxSpecificFiles = ["background.js", "browser-polyfill.js"];
 
 function copyIcons(targetDir) {
   const iconsDir = path.join(targetDir, "icons");
@@ -52,10 +51,32 @@ commonFiles.forEach((file) => {
     if (fs.existsSync(path.join(sourceDir, file))) {
       fs.copyFileSync(path.join(sourceDir, file), path.join(chromeDir, file));
       fs.copyFileSync(path.join(sourceDir, file), path.join(firefoxDir, file));
-      console.log(`  Copied ${file} to build directories`);
+      console.log(`  Copied ${file} to both build directories`);
     }
   } catch (err) {
     console.error(`Error copying ${file}: ${err.message}`);
+  }
+});
+
+chromeSpecificFiles.forEach((file) => {
+  try {
+    if (fs.existsSync(path.join(sourceDir, file))) {
+      fs.copyFileSync(path.join(sourceDir, file), path.join(chromeDir, file));
+      console.log(`  Copied ${file} to Chrome build`);
+    }
+  } catch (err) {
+    console.error(`Error copying Chrome-specific ${file}: ${err.message}`);
+  }
+});
+
+firefoxSpecificFiles.forEach((file) => {
+  try {
+    if (fs.existsSync(path.join(sourceDir, file))) {
+      fs.copyFileSync(path.join(sourceDir, file), path.join(firefoxDir, file));
+      console.log(`  Copied ${file} to Firefox build`);
+    }
+  } catch (err) {
+    console.error(`Error copying Firefox-specific ${file}: ${err.message}`);
   }
 });
 
