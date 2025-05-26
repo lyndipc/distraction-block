@@ -48,6 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
     e.preventDefault();
     chrome.tabs.create({
       url: this.href,
+      // url: chrome.runtime.getURL("privacy.html"),
     });
   });
 
