@@ -12,7 +12,7 @@ A browser extension for Chrome and Firefox that helps you stay focused by blocki
 
 We take your privacy seriously. This extension does not collect any personal data. All settings are stored locally in your browser.
 
-- [Read our full Privacy Policy](/privacy.html)
+- [Read our full Privacy Policy](https://lyndipc.github.io/distraction-block/privacy.html)
 
 ## Installation
 
