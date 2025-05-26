@@ -1,6 +1,6 @@
 {
   "name": "distraction-block",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "A browser extension that helps you stay focused by blocking distracting websites",
   "main": "src/background.js",
   "scripts": {
