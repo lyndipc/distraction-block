@@ -12,7 +12,7 @@ A browser extension for Chrome and Firefox that helps you stay focused by blocki
 
 We take your privacy seriously. This extension does not collect any personal data. All settings are stored locally in your browser.
 
-- [Read our full Privacy Policy](privacy.html)
+- [Read our full Privacy Policy](/privacy.html)
 
 ## Installation
 
@@ -42,7 +42,6 @@ We take your privacy seriously. This extension does not collect any personal dat
 If you try to access a blocked website when blocking is enabled, you'll see a block page with two options:
 
 - "Go Back" - Returns to the previous page
-- "Override Block (5 min)" - Temporarily allows access to the blocked site for 5 minutes
 
 ## Project Structure
 
@@ -65,6 +64,7 @@ To modify this extension:
 - Support for blocking specific paths within a domain
 - Add productivity statistics tracking
 - Create a settings page for advanced configurations
+- "Override Block (5 min)" - Temporarily allows access to the blocked site for 5 minutes
 
 ## License
 
